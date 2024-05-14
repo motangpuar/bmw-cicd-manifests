@@ -55,10 +55,7 @@ spec:
                   name: oai-gnb-configmap
                   key: useSATddMono
             - name: GNB_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: oai-gnb-configmap
-                  key: "argocd"
+              value: '03'
             - name: GNB_NAME
               value: 'oai-gnb-argocd'
             - name: MCC
