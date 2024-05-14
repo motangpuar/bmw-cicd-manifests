@@ -22,12 +22,12 @@ spec:
         k8s.v1.cni.cncf.io/networks: |-
           [{
                  "name": "oai-gnb-n2-wa",
-                 "ips":["172.2.2.100/24"],
+                 "ips":["172.2.2.101/24"],
                  "interface": "n2"
           } ,{
                  "name": "oai-gnb-n3",
                  "interface": "n3",
-                 "ips": ["172.3.0.200/24"]
+                 "ips": ["172.3.0.201/24"]
           } ]
     spec:
       containers:
@@ -58,12 +58,9 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: oai-gnb-configmap
-                  key: gnbID
+                  key: "argocd"
             - name: GNB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: oai-gnb-configmap
-                  key: gnbName
+              value: 'oai-gnb-argocd'
             - name: MCC
               valueFrom:
                 configMapKeyRef:
@@ -105,20 +102,14 @@ spec:
                   name: oai-gnb-configmap
                   key: gnbNgaIfName
             - name: GNB_NGA_IP_ADDRESS
-              valueFrom:
-                configMapKeyRef:
-                  name: oai-gnb-configmap
-                  key: gnbNgaIpAddress
+              value: '172.2.2.101'
             - name: GNB_NGU_IF_NAME
               valueFrom:
                 configMapKeyRef:
                   name: oai-gnb-configmap
                   key: gnbNguIfName
             - name: GNB_NGU_IP_ADDRESS
-              valueFrom:
-                configMapKeyRef:
-                  name: oai-gnb-configmap
-                  key: gnbNguIpAddress
+              value: '172.3.0.200'
             - name: THREAD_PARALLEL_CONFIG
               valueFrom:
                 configMapKeyRef:
