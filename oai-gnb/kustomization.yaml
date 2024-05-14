@@ -1,3 +1,4 @@
 namespace: oai-ran
 resources:
-  - deployment.yaml
+  - gnb/deployment.yaml
+  - ue/deployment.yaml
