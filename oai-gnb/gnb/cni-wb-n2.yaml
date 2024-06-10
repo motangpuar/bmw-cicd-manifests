@@ -1,0 +1,18 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: oai-gnb-n2-wa
+  namespace: oai-ran
+spec:
+  config: |-
+    {
+          "cniVersion": "0.3.0",
+          "name": "whereaboutsexample",
+          "type": "macvlan",
+          "master": "enp1s0",
+          "mode": "bridge",
+          "ipam": {
+            "type": "whereabouts"
+          }
+    }
+

@@ -1,0 +1,29 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: oai-gnb-configmap
+  namespace: oai-ran
+  annotations:
+    meta.helm.sh/release-name: gnb
+    meta.helm.sh/release-namespace: oai-ran
+data:
+  amfIpAddress: 172.2.2.254
+  gnbID: '02'
+  gnbName: oai-gnb-rfsim-01
+  gnbNgaIfName: n2
+  gnbNgaIpAddress: 172.2.2.100
+  gnbNguIfName: n3
+  gnbNguIpAddress: 172.3.0.200
+  mcc: '001'
+  mnc: '01'
+  mncLength: '2'
+  mountConfig: 'false'
+  nssaiSd0: '16777215 '
+  nssaiSst: '1'
+  rfSimulator: server
+  sdrAddrs: serial=XXXXXXX
+  tac: '1'
+  threadParallelConfig: PARALLEL_SINGLE_THREAD
+  timeZone: Europe/Paris
+  useAdditionalOptions: '--sa -E --rfsim --log_config.global_log_options level,nocolor,time'
+  useSATddMono: 'yes'

@@ -1,4 +1,9 @@
 namespace: oai-ran
 resources:
   - gnb/deployment.yaml
+  - gnb/configmap.yaml
+  - gnb/cni-wb-n2.yaml
+  - gnb/cni-wb-n3.yaml
   - ue/deployment.yaml
+  - ue/configmap.yaml
+
