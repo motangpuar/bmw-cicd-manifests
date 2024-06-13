@@ -10,7 +10,7 @@ data:
   nssaiSd: '16777215'
   nssaiSst: '1'
   opc: C42449363BBAD02B66D16BC975D77CC1
-  rfSimulator: oai-gnb
+  rfSimulator: oai-gnb-argocd
   timeZone: Europe/Paris
   useAdditionalOptions: >-
     --sa -E --rfsim -r 106 --numerology 1 -C 3319680000 --nokrnmod
