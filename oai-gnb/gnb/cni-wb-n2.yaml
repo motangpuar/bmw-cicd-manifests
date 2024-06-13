@@ -7,9 +7,9 @@ spec:
   config: |-
     {
           "cniVersion": "0.3.0",
-          "name": "whereaboutsexample",
+          "name": "gnb-n2",
           "type": "macvlan",
-          "master": "enp1s0",
+          "master": "ens160",
           "mode": "bridge",
           "ipam": {
             "type": "whereabouts"

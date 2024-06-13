@@ -66,8 +66,6 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 5
       dnsPolicy: ClusterFirst
-      nodeSelector:
-        kubernetes.io/hostname: worker-kvm-02-01
       serviceAccountName: oai-nr-ue-sa
       serviceAccount: oai-nr-ue-sa
       securityContext:

@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: oai-gnb-argocd
+  namespace: oai-ran
+spec:
+  ports:
+    - name: n3
+      protocol: TCP
+      port: 2152
+      targetPort: 2152
+    - name: n2
+      protocol: SCTP
+      port: 36412
+      targetPort: 36412
+  selector:
+    app.kubernetes.io/instance: gnb
+    app.kubernetes.io/name: oai-gnb
+  clusterIP: None
+  clusterIPs:
+    - None
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster

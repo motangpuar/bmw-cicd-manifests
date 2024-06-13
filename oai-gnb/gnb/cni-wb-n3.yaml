@@ -9,7 +9,7 @@ spec:
           "cniVersion": "0.3.0",
           "name": "gnb-n3",
           "type": "macvlan",
-          "master": "enp1s0",
+          "master": "ens160",
           "mode": "bridge",
           "ipam": {
             "type": "whereabouts"
