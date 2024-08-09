@@ -1,0 +1,141 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: osc-du-argocd
+  namespace: oai-ran
+  labels:
+    helm.sh/chart: osc-du-argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: gnb
+      app.kubernetes.io/name: osc-du
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: osc-du
+        app.kubernetes.io/instance: gnb
+        app.kubernetes.io/name: osc-du
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+                 "name": "osc-du-n2-wa",
+                 "ips":["172.2.2.101/24"],
+                 "interface": "n2"
+          } ,{
+                 "name": "osc-du-n3",
+                 "interface": "n3",
+                 "ips": ["172.3.0.201/24"]
+          } ]
+    spec:
+      containers:
+        - name: gnb
+          image: docker.io/oaisoftwarealliance/osc-du:2023.w19
+          ports:
+            - name: n3
+              containerPort: 2152
+              protocol: UDP
+            - name: n2
+              containerPort: 36412
+              protocol: SCTP
+          env:
+            - name: TZ
+              value: Europe/Paris
+            - name: RFSIMULATOR
+              value: server
+            - name: USE_ADDITIONAL_OPTIONS
+              value: >-
+                --sa -E --rfsim --log_config.global_log_options
+                level,nocolor,time
+            - name: USE_SA_TDD_MONO
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: useSATddMono
+            - name: GNB_ID
+              value: '03'
+            - name: GNB_NAME
+              value: 'osc-du-argocd'
+            - name: MCC
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: mcc
+            - name: MNC
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: mnc
+            - name: MNC_LENGTH
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: mncLength
+            - name: TAC
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: tac
+            - name: NSSAI_SST
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: nssaiSst
+            - name: NSSAI_SD0
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: nssaiSd0
+            - name: AMF_IP_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: amfIpAddress
+            - name: GNB_NGA_IF_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: gnbNgaIfName
+            - name: GNB_NGA_IP_ADDRESS
+              value: '172.2.2.101'
+            - name: GNB_NGU_IF_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: gnbNguIfName
+            - name: GNB_NGU_IP_ADDRESS
+              value: '172.3.0.200'
+            - name: THREAD_PARALLEL_CONFIG
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: threadParallelConfig
+            - name: SDR_ADDRS
+              valueFrom:
+                configMapKeyRef:
+                  name: osc-du-configmap
+                  key: sdrAddrs
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 5
+      dnsPolicy: ClusterFirst
+      serviceAccountName: osc-du-sa
+      serviceAccount: osc-du-sa
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+      imagePullSecrets:
+        - name: regcred
+      schedulerName: default-scheduler
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+

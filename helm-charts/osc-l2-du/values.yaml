@@ -1,0 +1,131 @@
+# Default values for osc-l2-du.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.bmw.lab/infidel/osc-dul2
+  pullPolicy: Always
+  tag: "master"
+    #tag: "tony"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+
+securityContext:
+  privileged: true
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+command:
+  - sleep
+  - infinity
+  #- "/opt/o-du-l2/bin/odu/odu"
+  #- "./odu"
+  #command: ["sleep","infinity"]
+
+resources: {}
+  # We usually recommend not to specify default esources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  # livenessProbe:
+  #   httpGet:
+  #     path: /
+  #     port: http
+  # readinessProbe:
+  #   httpGet:
+  #     path: /
+  #     port: http
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: fdd-config-volume-master
+    configMap: 
+      name: osc-fdd-config-master
+  - name: fdd-config-volume-i-rel
+    configMap: 
+      name: osc-fdd-config-i-rel
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: fdd-config-volume-i-rel
+    mountPath: "/opt/o-du-l2/build/config/odu_config.xml"
+    subPath: odu_config.xml
+  - name: fdd-config-volume-master
+    mountPath: "/opt/o-du-l2/build/config/fdd_odu_config.xml"
+    subPath: fdd_odu_config.xml
+
+nodeSelector:
+  kubernetes.io/hostname: worker-kvm-02-01
+
+tolerations: []
+
+workingDir: /opt/o-du-l2/bin
+
+affinity: {}
+
+oscConfig:
+  DU_IP: "192.168.130.81"
+  CU_IP: "192.168.130.82"
+  RIC_IP: "192.168.130.80"
+
+multus:
+  f1Interface:
+    create: true
+    IPadd: "192.168.130.81"
+    Netmask: "24"
+    hostInterface: "enp1s0"
+

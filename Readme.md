@@ -1,9 +1,11 @@
 ## Automatic Deployment Scripts
 
-- [ ] OAI gNB from public repo
-- [ ] OAI gNB from local repo
+- [x] OAI gNB from public repo
+- [x] OAI gNB from local repo
+- [x] Helm Charts
 
 ### Requirements
 
+1. OAI
 - Whereabouts CNI
-- 
+- ...
