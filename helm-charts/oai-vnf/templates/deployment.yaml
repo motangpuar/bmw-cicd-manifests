@@ -21,7 +21,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: >-
           [{
                  "name": "{{ .Chart.Name }}-wa",
-                 "interface": "f1",
+                 "interface": "nfapi",
                  "ips": [{{- cat .Values.multus.f1Interface.IPadd "/" .Values.multus.f1Interface.Netmask | nospace | quote }}]
                   {{- if .Values.multus.defaultGateway }}
                  ,"default-route": ["{{ .Values.multus.defaultGateway }}"]

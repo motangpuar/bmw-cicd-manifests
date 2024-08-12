@@ -15,25 +15,28 @@ data:
     gNBs =
     (
      {
-        ////////// Identification parameters:
+     ////////// Identification parameters:
         gNB_ID    =  0x01;
-        gNB_name  =  "gNB-OAI";
+        cell_type =  "CELL_MACRO_GNB";
+        gNB_name  =  "gNB-Eurecom-5GNRBox";
     
         // Tracking area code, 0x0000 and 0xfffe are reserved values
         tracking_area_code  =  1;
+    
         plmn_list = ({
-                      mcc = 311;
-                      mnc = 48;
+                      mcc = 001;
+                      mnc = 01;
                       mnc_length = 2;
                       snssaiList = (
                         {
                           sst = 1;
-                          sd  = 0x1; // 0 false, else true
+                          sd  = 0xffffff; // 0 false, else true
                         }
                       );
-    
+
                       });
-    
+
+        pusch_AntennaPorts                                        = 1;
         nr_cellid = 1L;
     
         ////////// Physical parameters:
@@ -49,6 +52,9 @@ data:
           }
           );
     
+        ser
+    
+    	
         servingCellConfigCommon = (
         {
      #spCellConfigCommon
@@ -58,43 +64,43 @@ data:
     #  downlinkConfigCommon
         #frequencyInfoDL
           # this is 3600 MHz + 43 PRBs@30kHz SCS (same as initial BWP)
-          absoluteFrequencySSB                                             = 641280;
+          absoluteFrequencySSB                                          = 641280;
           dl_frequencyBand                                                 = 78;
           # this is 3600 MHz
           dl_absoluteFrequencyPointA                                       = 640008;
           #scs-SpecificCarrierList
             dl_offstToCarrier                                              = 0;
     # subcarrierSpacing
-    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120
+    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120  
             dl_subcarrierSpacing                                           = 1;
             dl_carrierBandwidth                                            = 106;
          #initialDownlinkBWP
           #genericParameters
-            # this is RBstart=27,L=48 (275*(L-1))+RBstart
-            initialDLBWPlocationAndBandwidth                               = 6366; # 6366 12925 12956 28875 12952
+            # this is RBstart=41,L=24 (275*(L-1))+RBstart
+            initialDLBWPlocationAndBandwidth                                        = 6366;
     # subcarrierSpacing
-    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120
-            initialDLBWPsubcarrierSpacing                                   = 1;
+    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120  
+            initialDLBWPsubcarrierSpacing                                           = 1;
           #pdcch-ConfigCommon
-            initialDLBWPcontrolResourceSetZero                              = 12;
-            initialDLBWPsearchSpaceZero                                     = 0;
+            initialDLBWPcontrolResourceSetZero                                      = 12;
+            initialDLBWPsearchSpaceZero                                             = 0;
     
-      #uplinkConfigCommon
+      #uplinkConfigCommon 
          #frequencyInfoUL
-          ul_frequencyBand                                              = 78;
+          ul_frequencyBand                                                 = 78;
           #scs-SpecificCarrierList
-          ul_offstToCarrier                                             = 0;
+          ul_offstToCarrier                                              = 0;
     # subcarrierSpacing
-    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120
-          ul_subcarrierSpacing                                          = 1;
-          ul_carrierBandwidth                                           = 106;
+    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120  
+          ul_subcarrierSpacing                                           = 1;
+          ul_carrierBandwidth                                            = 106;
           pMax                                                          = 20;
          #initialUplinkBWP
           #genericParameters
-            initialULBWPlocationAndBandwidth                            = 74800;
+            initialULBWPlocationAndBandwidth                                        = 6366;
     # subcarrierSpacing
-    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120
-            initialULBWPsubcarrierSpacing                               = 1;
+    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120  
+            initialULBWPsubcarrierSpacing                                           = 1;
           #rach-ConfigCommon
             #rach-ConfigGeneric
               prach_ConfigurationIndex                                  = 98;
@@ -103,7 +109,7 @@ data:
               prach_msg1_FDM                                            = 0;
               prach_msg1_FrequencyStart                                 = 0;
               zeroCorrelationZoneConfig                                 = 13;
-              preambleReceivedTargetPower                               = -96;
+              preambleReceivedTargetPower                               = -118;
     #preamblTransMax (0...10) = (3,4,5,6,7,8,10,20,50,100,200)
               preambleTransMax                                          = 6;
     #powerRampingStep
@@ -116,7 +122,7 @@ data:
     #1=oneeighth,2=onefourth,3=half,4=one,5=two,6=four,7=eight,8=sixteen
             ssb_perRACH_OccasionAndCB_PreamblesPerSSB_PR                = 4;
     #oneHalf (0..15) 4,8,12,16,...60,64
-            ssb_perRACH_OccasionAndCB_PreamblesPerSSB                   = 14;
+            ssb_perRACH_OccasionAndCB_PreamblesPerSSB                   = 15;
     #ra_ContentionResolutionTimer
     #(0..7) 8,16,24,32,40,48,56,64
             ra_ContentionResolutionTimer                                = 7;
@@ -126,7 +132,7 @@ data:
             prach_RootSequenceIndex_PR                                  = 2;
             prach_RootSequenceIndex                                     = 1;
             # SCS for msg1, can only be 15 for 30 kHz < 6 GHz, takes precendence over the one derived from prach-ConfigIndex
-            #
+            #  
             msg1_SubcarrierSpacing                                      = 1,
     # restrictedSetConfig
     # 0=unrestricted, 1=restricted type A, 2=restricted type B
@@ -147,7 +153,7 @@ data:
           ssb_PositionsInBurst_Bitmap                                   = 1;
     
     # ssb_periodicityServingCell
-    # 0 = ms5, 1=ms10, 2=ms20, 3=ms40, 4=ms80, 5=ms160, 6=spare2, 7=spare1
+    # 0 = ms5, 1=ms10, 2=ms20, 3=ms40, 4=ms80, 5=ms160, 6=spare2, 7=spare1 
           ssb_periodicityServingCell                                    = 2;
     
     # dmrs_TypeA_position
@@ -155,15 +161,15 @@ data:
           dmrs_TypeA_Position                                           = 0;
     
     # subcarrierSpacing
-    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120
+    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120  
           subcarrierSpacing                                             = 1;
     
     
       #tdd-UL-DL-ConfigurationCommon
     # subcarrierSpacing
-    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120
+    # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120  
           referenceSubcarrierSpacing                                    = 1;
-          # pattern1
+          # pattern1 
           # dl_UL_TransmissionPeriodicity
           # 0=ms0p5, 1=ms0p625, 2=ms1, 3=ms1p25, 4=ms2, 5=ms2p5, 6=ms5, 7=ms10
           dl_UL_TransmissionPeriodicity                                 = 6;
@@ -172,8 +178,9 @@ data:
           nrofUplinkSlots                                               = 2;
           nrofUplinkSymbols                                             = 4;
     
-          ssPBCH_BlockPower                                             = -25;
+      ssPBCH_BlockPower                                             = 10;
       }
+    
     
       );
     
@@ -281,7 +288,7 @@ data:
         {
     	num_cc = 1;
     	tr_n_preference = "nfapi";
-        local_n_if_name  = "f1";
+        local_n_if_name  = "nfapi";
         remote_n_address = "@VNF_IP_ADDRESS@";
         local_n_address  = "@PNF_IP_ADDRESS@";
         local_n_portc    = 50000;

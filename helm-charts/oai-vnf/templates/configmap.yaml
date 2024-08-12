@@ -235,7 +235,7 @@ data:
             #local_s_address  = "127.0.0.2"; // vnf addr
             remote_n_address = "@PNF_IP_ADDRESS@";
             local_n_address  = "@VNF_IP_ADDRESS@";
-            local_s_if_name = "f1";
+            local_s_if_name = "nfapi";
             local_s_portc    = 50001; // vnf p5 port
             remote_s_portc   = 50000; // pnf p5 port [!]
             local_s_portd    = 50011; // vnf p7 port [!]

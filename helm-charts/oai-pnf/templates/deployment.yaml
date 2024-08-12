@@ -20,24 +20,10 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: >-
           [{
-                 "name": "{{ .Chart.Name }}-f1",
-                 "interface": "f1"
-                  {{- if .Values.multus.defaultGateway }}
-                 ,"default-route": ["{{ .Values.multus.defaultGateway }}"]
-                  {{- end }}
+                 "name": "{{ .Chart.Name }}-wa",
+                 "interface": "nfapi",
+                 "ips": [{{- cat .Values.multus.f1Interface.IPadd "/" .Values.multus.f1Interface.Netmask | nospace | quote }}]
           }
-          {{- if .Values.multus.n3Interface.create }}
-          ,{
-                 "name": "{{ .Chart.Name }}-n3",
-                 "interface": "n3"
-          }
-          {{- end }}
-          {{- if .Values.multus.n2Interface.create }}
-          ,{
-                 "name": "{{ .Chart.Name }}-n2",
-                 "interface": "n2"
-          }
-          {{- end }}
           ]
     {{- end }}
     spec:
