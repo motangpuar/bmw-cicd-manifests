@@ -14,22 +14,20 @@ data:
      {
      ////////// Identification parameters:
         gNB_ID    =  0x01;
-    
         cell_type =  "CELL_MACRO_GNB";
-    
         gNB_name  =  "gNB-Eurecom-5GNRBox";
     
         // Tracking area code, 0x0000 and 0xfffe are reserved values
         tracking_area_code  =  1;
     
         plmn_list = ({
-                      mcc = 311;
-                      mnc = 48;
+                      mcc = 001;
+                      mnc = 01;
                       mnc_length = 2;
                       snssaiList = (
                         {
                           sst = 1;
-                          sd  = 0x1; // 0 false, else true
+                          sd  = 0xffffff; // 0 false, else true
                         }
                       );
 
@@ -209,7 +207,13 @@ data:
     
     
         ////////// MME parameters:
-        mme_ip_address = ({ ipv4 = "192.168.12.26"; });
+        amf_ip_address = ({ ipv4 = "{{ .Values.config.amfhost }}"; 
+                            ipv6 = "192:168:12:12"; 
+                            active = "yes"; 
+                            preference = "ipv4"; 
+
+            }
+        );
     
         NETWORK_INTERFACES :
         {
