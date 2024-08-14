@@ -69,22 +69,21 @@ config:
   mountConfig: false          #If config file is mounted then please edit mount.conf in configmap.yaml properly 
   timeZone: "Europe/Paris"
   #useAdditionalOptions: "--nfapi PNF --rfsim --rfsimulator.serveraddr server --phy-test"
-  useAdditionalOptions: "--sa --rfsim --nfapi PNF --rfsimulator.serveraddr server"
+  useAdditionalOptions: "--sa --rfsim --nfapi PNF --rfsimulator.serveraddr server --gNBs.[0].min_rxtxtime 6 --continuous-tx"
   #useAdditionalOptions: "--gNBs.[0].min_rxtxtime 6 --continuous-tx --nfapi PNF"
 
   # If mounting the configuration file then below parameters are not used
   cuName: "oai-pnf"
-  mcc: "311"   # check the information with AMF, SMF, UPF
-  mnc: "48"    # check the information with AMF, SMF, UPF
+  mcc: "001"   # check the information with AMF, SMF, UPF
+  mnc: "01"    # check the information with AMF, SMF, UPF
   tac: "1"     # check the information with AMF
   sst: "1"  #currently only 4 standard values are allowed 1,2,3,4
   amfhost: "oai-amf"  # amf ip-address or service-name oai-amf-svc or 172.21.6.94
   n2IfName: "n2"    # if multus.n2Interface.create is true then use n2
   n3IfName: "n3"   #if multus.n3Interface.create is true then use n3 or you can only use 1 interface n2 or eth0 
   f1IfName: "f1"   #if multus.f1Interface.create is true then use multus.f1Interface.Ipadd
-  vnfIfName: "f1"   #if multus.f1Interface.create is true then use multus.f1Interface.Ipadd
+  vnfIfName: "nfapi"   #if multus.f1Interface.create is true then use multus.f1Interface.Ipadd
   pnfIfName: "f1"   #if multus.f1Interface.create is true then use multus.f1Interface.Ipadd
-
   f1cuPort: "2153"   #2153 if using same interface for f1 and n3 else standard port 2152 should be use if f1 and n3 interface are different
   f1duPort: "2153"   #2153 if using same interface for f1 and n3 else standard port 2152 should be use if f1 and n3 interface are different # Debugging section
   pnfHost: "192.168.120.82"

@@ -93,6 +93,9 @@ spec:
                 -e s/@N3_IP_ADDRESS@/$N3_IP_ADDRESS/g
                 -e s/@F1_IP_ADDRESS@/$F1_IP_ADDRESS/g
                 -e s/@AMF_IP_ADDRESS@/$AMF_IP_ADDRESS/g
+                -e s/@MCC@/$MCC/g
+                -e s/@MNC@/$MNC/g
+                -e s/@SST@/$SST/g
                 /opt/oai-gnb/etc/du.conf | tee /tmp/du.conf;
 
         {{- if .Values.start.debug}}
@@ -125,6 +128,12 @@ spec:
             value: {{ .Values.config.vnfIfName }}
           - name: PNF_IP_ADDRESS
             value: {{ .Values.config.pnfHost }}
+          - name: MCC
+            value: {{ .Values.config.mcc | quote }}
+          - name: MNC
+            value: {{ .Values.config.mnc | quote }}
+          - name: SST
+            value: {{ .Values.config.sst | quote }}
       {{- if .Values.includeTcpDumpContainer }}
       - name: tcpdump
         image: "{{ .Values.tcpdumpimage.repository }}:{{ .Values.tcpdumpimage.version }}"

@@ -37,9 +37,9 @@ data:
            sl_ahead = 5;
            nb_tx          = 1
            nb_rx          = 1
-           att_tx         = 90
+           att_tx         = 0
            att_rx         = 0;
-           bands          = [7,38,42,43];
+           bands          = [78];
            max_pdschReferenceSignalPower = -27;
            max_rxgain                    = 125;
         }		      
