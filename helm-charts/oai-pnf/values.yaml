@@ -69,7 +69,8 @@ config:
   mountConfig: false          #If config file is mounted then please edit mount.conf in configmap.yaml properly 
   timeZone: "Europe/Paris"
   #useAdditionalOptions: "--nfapi PNF --rfsim --rfsimulator.serveraddr server --phy-test"
-  useAdditionalOptions: "--sa --rfsim --nfapi PNF --rfsimulator.serveraddr server --gNBs.[0].min_rxtxtime 6 --continuous-tx"
+  #useAdditionalOptions: "--sa --rfsim --nfapi PNF" 
+  useAdditionalOptions: "--nfapi PNF --rfsim --rfsimulator.serveraddr server --log\_config.global\_log\_options wall\_clock --sa"
   #useAdditionalOptions: "--gNBs.[0].min_rxtxtime 6 --continuous-tx --nfapi PNF"
 
   # If mounting the configuration file then below parameters are not used

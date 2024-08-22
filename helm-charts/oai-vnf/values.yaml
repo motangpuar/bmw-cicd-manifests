@@ -53,7 +53,7 @@ multus:
     hostInterface: "enp1s0"      # Interface of the host machine on which this pod will be scheduled
   n3Interface:
     create: true
-    IPadd: "172.2.2.20" #UPF
+    IPadd: "172.2.0.20" #UPF
     Netmask: "24"
     # #name inside the pod is hardcoded right now
     # name: "n3"
@@ -69,7 +69,7 @@ config:
   mountConfig: false          #If config file is mounted then please edit mount.conf in configmap.yaml properly 
   timeZone: "Europe/Paris"
   #useAdditionalOptions: "--sa --log_config.global_log_options level,nocolor,time"
-  useAdditionalOptions: "--nfapi VNF --sa"
+  useAdditionalOptions: "--nfapi VNF --sa --log\_config.global\_log\_options wall\_clock  --emulate-l1"
 
   # If mounting the configuration file then below parameters are not used
   cuName: "oai-vnf"
